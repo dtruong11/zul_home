@@ -1,3 +1,8 @@
+/* 
+Write a program that adds a single new node to a directed graph. The new node must be the child of all nodes in the graph that had no children before it was added.
+*/
+
+
 // RETRIEVE INPUT FROM TEXT FILE
 const fs = require('fs')
 const path = require('path')
@@ -57,3 +62,6 @@ const addNewNode = ({ newNode, nodes, edges }) => {
 }
 
 console.log('Solution: ', addNewNode(input))
+module.exports = {
+  addNewNode
+}
