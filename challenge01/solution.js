@@ -11,6 +11,7 @@ const content = fs.readFileSync(origin, 'utf-8')
 const input = JSON.parse(content) // parse input as json format
 
 /* LOGIC
+  Handle special cases: empty graph, graph with only one node 
   Step 1: Create objects to stores nodes with children, nodesWithChild, 
   and nodes without children, noChild => O(1) access
   Step 2: Fill up nodesWithChild and noChild objects
@@ -26,13 +27,35 @@ const input = JSON.parse(content) // parse input as json format
 // IMPLEMENTATION 
 // Function addNewNode accepts input object and destructures it in the parameter. 
 const addNewNode = ({ newNode, nodes, edges }) => {
-
-  // Error handling of edge cases 
-  if (!newNode) throw new Error('There is no new node to add')
   let vertices = nodes
-  if (vertices.length === 0) throw new Error('Add some nodes to the graph')
-  if (edges.length === 0) throw new Error('Add some edges between nodes')
 
+  /* Error handling */
+  // No new node to add  
+  if (!newNode) throw new Error('There is no new node to add')
+  // The graph has edges, but no node listed in 'nodes' array 
+  if (vertices.length === 0 && edges.length > 0) throw new Error('The input should have an array of nodes, if edges are present')
+
+  // Special cases:
+  /* Case 1: the graph has no node, no edges */
+  if (vertices.length === 0) {
+    return {
+      "nodes": [newNode],
+      "edges": edges
+    }
+  }
+
+  /* Case 2: the graph has more than one node, but no edges */
+  if (vertices.length >= 1 && edges.length === 0) {
+    let edgesArr = vertices.map(el => {
+      return [el, newNode]
+    })
+    return {
+      'nodes': [...vertices, newNode],
+      'edges': edgesArr
+    }
+  }
+
+  /* Case 3: the graph has multiple nodes, multiple edges */
   // Step 1: Objects of nodes with children and without child
   let nodesWithChild = {}
   let noChild = {}
@@ -62,6 +85,8 @@ const addNewNode = ({ newNode, nodes, edges }) => {
 }
 
 console.log('Solution: ', addNewNode(input))
+
+
 module.exports = {
   addNewNode
 }
