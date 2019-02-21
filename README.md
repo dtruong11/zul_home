@@ -7,7 +7,7 @@
 
 ##### Challenge 2: Campground 
 
-* Got stuck with this challenge. I wrote my possible approach. 
+* I wrote my possible approach. 
 
 ##### Installation 
 * git clone 
