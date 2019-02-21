@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { addNewNode } = require('../challenge01/solution')
 
-
+// same input as in input.txt 
 let testInput = {
   "nodes": [0, 1, 2],
   "edges": [[0, 1], [0, 2]],
